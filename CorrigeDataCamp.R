@@ -21,3 +21,43 @@ ficheros_justificante <- list.files(path = carpeta,
                                     full.names = TRUE)
 
 ficheros_justificante
+
+
+apellidos <- c()
+puntos <- c()
+
+for(i in 1:length(ficheros_puntos)){
+  
+  ruta <- ficheros_puntos[i]
+  
+  partes <- strsplit(ruta, split = "/", fixed = TRUE)[[1]]
+  
+  carpeta_alumno <- partes[length(partes)-1]
+  
+  texto_alumno <- strsplit(carpeta_alumno, split = "_", fixed = TRUE)[[1]][1]
+  
+  apellido_i <- strsplit(texto_alumno, split = ",", fixed = TRUE)[[1]][1]
+  apellidos <- c(apellidos, apellido_i)
+  
+  contenido_i <- readLines(ruta)
+  puntos <- c(puntos, as.numeric(contenido_i[1]))
+}
+
+NomFile <- c()
+
+for(i in 1:length(ficheros_puntos)){
+  
+  ruta <- ficheros_puntos[i]
+  
+  partes <- strsplit(ruta, split = "/", fixed = TRUE)[[1]]
+  
+  nombre_i <- partes[length(partes)]
+  
+  NomFile <- c(NomFile, nombre_i)
+}
+
+all(NomFile == "puntos.txt")
+unique(NomFile)
+length(unique(NomFile))
+table(NomFile)
+
