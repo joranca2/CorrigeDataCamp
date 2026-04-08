@@ -61,3 +61,25 @@ unique(NomFile)
 length(unique(NomFile))
 table(NomFile)
 
+
+apellidos_justificante <- c()
+
+for(i in 1:length(ficheros_justificante)){
+  
+  ruta <- ficheros_justificante[i]
+  
+  partes <- strsplit(ruta, split = "/", fixed = TRUE)[[1]]
+  
+  carpeta_alumno <- partes[length(partes)-1]
+  
+  texto_alumno <- strsplit(carpeta_alumno, split = "_", fixed = TRUE)[[1]][1]
+  
+  apellido_i <- strsplit(texto_alumno, split = ",", fixed = TRUE)[[1]][1]
+  
+  apellidos_justificante <- c(apellidos_justificante, apellido_i)
+}
+
+TieneJustificante <- apellidos %in% apellidos_justificante
+
+all(TieneJustificante)
+apellidos[!TieneJustificante]
